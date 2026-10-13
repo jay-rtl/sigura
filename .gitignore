@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.astro/
+.npm-cache/
+test-results/
+.env
+.deploy-tools/
+research/*.html
+research/*-images.txt
+research/originals/

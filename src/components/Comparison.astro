@@ -1,0 +1,15 @@
+---
+import Photo from './Photo.astro';
+interface Props { kitchen?:boolean; }
+const {kitchen=false}=Astro.props;
+const id=kitchen?'kitchen-comparison':'living-comparison';
+---
+<div class="compare-wrap">
+  <div class="comparison" style="--position:50%">
+    <Photo name={kitchen?'afterKitchen':'after'} alt={kitchen?'Menlo Park kitchen after remodeling':'Morgan Hill living room after remodeling'}/>
+    <div class="compare-before"><Photo name={kitchen?'beforeKitchen':'before'} alt={kitchen?'Same Menlo Park kitchen before remodeling':'Same Morgan Hill living room before remodeling'}/></div>
+    <span class="compare-label before-label">Before</span><span class="compare-label after-label">After</span><span class="compare-line"><span>↔</span></span>
+    <label class="sr-only" for={id}>Reveal before and after: {kitchen?'Menlo Park kitchen':'Morgan Hill living room'}</label><input id={id} type="range" min="0" max="100" value="50" aria-valuetext="50% before, 50% after"/>
+  </div>
+  <div class="compare-meta"><span>{kitchen?'Menlo Park · Kitchen remodel':'Morgan Hill · Whole-home remodel'}</span><span>Drag to discover <span aria-hidden="true">↔</span></span></div>
+</div>

@@ -1,0 +1,53 @@
+---
+import { ClientRouter } from 'astro:transitions';
+import { url, image } from '../lib/paths';
+import '../styles/global.css';
+interface Props { title: string; description: string; hero?: string; home?: boolean; }
+const { title, description, hero, home = false } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const nav = [['Projects','projects/'],['Our expertise','services/'],['About us','about/'],['Our process','process/']];
+const schema = {'@context':'https://schema.org','@type':'GeneralContractor',name:'Sigura Construction, Inc.',telephone:'+1-408-492-1379',email:'info@siguraconstruction.com',foundingDate:'2003',address:{'@type':'PostalAddress',streetAddress:'1290 Reamwood Ave STE A',addressLocality:'Sunnyvale',addressRegion:'CA',postalCode:'94089',addressCountry:'US'},areaServed:['San Francisco Peninsula','South Bay'],url:canonical.origin+url('')};
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>{title} | Sigura Construction</title><meta name="description" content={description}/>
+  <link rel="icon" type="image/svg+xml" href={url('favicon.svg')}/><link rel="canonical" href={canonical}/>
+  <meta property="og:title" content={`${title} | Sigura Construction`}/><meta property="og:description" content={description}/><meta property="og:type" content="website"/><meta property="og:url" content={canonical}/><meta property="og:image" content={new URL(image(hero || 'architecture'), Astro.site)}/>
+  <meta name="theme-color" content="#1a1d1c"/>
+  {hero && <link rel="preload" as="image" href={image(hero)} imagesrcset={`${image(hero,800)} 800w, ${image(hero)} 1600w`} imagesizes="100vw"/>}
+  <script type="application/ld+json" set:html={JSON.stringify(schema)}/>
+  <ClientRouter />
+</head>
+<body class:list={[{home}]}>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <a class="brand" href={url('')} aria-label="Sigura Construction home">
+      <svg viewBox="0 0 42 46" fill="none" aria-hidden="true"><path d="M3 41V18L21 5l18 13v23H3Zm8 0V23l10-8 10 8v18M21 15v26M0 41h42" stroke="currentColor" stroke-width="1.5"/></svg>
+      <span>SIGURA<small>CONSTRUCTION</small></span>
+    </a>
+    <nav class="desktop-nav" aria-label="Main navigation">{nav.map(([label,path])=><a class:list={[{active:Astro.url.pathname.includes(path)}]} href={url(path)}>{label}</a>)}</nav>
+    <a class="header-cta" href={url('contact/')}>Let’s build something <span>↗</span></a>
+    <button class="menu-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open navigation"><span></span><span></span></button>
+  </header>
+  <nav id="mobile-menu" class="mobile-menu" aria-label="Mobile navigation" inert>
+    {nav.map(([label,path],i)=><a href={url(path)}><sup>0{i+1}</sup>{label}<span>↗</span></a>)}
+    <a href={url('contact/')}><sup>05</sup>Start your project<span>↗</span></a>
+    <a class="menu-phone" href="tel:+14084921379">(408) 492-1379</a>
+  </nav>
+  {home && <div class="intro" aria-hidden="true"><svg viewBox="0 0 400 200"><path d="M20 180H380M90 180V80L200 15l110 65v100M125 180V100l75-45 75 45v80M200 55v125"/></svg><span>SIGURA<small>BUILT WITH INTENTION.</small></span></div>}
+  <main id="main"><slot /></main>
+  <footer>
+    <div class="footer-top"><a class="footer-wordmark" href={url('')}>SIGURA<span>CONSTRUCTION</span></a><p>Considered spaces.<br/>Lasting craftsmanship.<br/><span>Bay Area, California · Since 2003</span></p></div>
+    <div class="footer-grid">
+      <div><p class="eyebrow">Let’s talk about your vision</p><a class="footer-phone" href="tel:+14084921379">(408) 492-1379 ↗</a><a href="mailto:info@siguraconstruction.com">info@siguraconstruction.com</a><address>1290 Reamwood Ave STE A<br/>Sunnyvale, CA 94089</address></div>
+      <div><p class="eyebrow">Explore</p>{[['Projects','projects/'],['Before & after','before-after/'],['About','about/'],['Process','process/'],['Reviews','reviews/']].map(([a,b])=><a href={url(b)}>{a}</a>)}</div>
+      <div><p class="eyebrow">Expertise</p>{[['Custom homes','custom-homes'],['Home remodeling','home-remodeling'],['ADUs','adus'],['Outdoor living','outdoor-living'],['All services','']].map(([a,b])=><a href={url(`services/${b?b+'/':''}`)}>{a}</a>)}</div>
+      <div><p class="eyebrow">More</p>{[['Recognition','awards/'],['Service areas','service-areas/'],['Journal','blog/'],['Get in touch','contact/']].map(([a,b])=><a href={url(b)}>{a}</a>)}<p class="license">CA contractor license<br/>#865155</p></div>
+    </div>
+    <div class="footer-bottom"><span>© {new Date().getFullYear()} Sigura Construction, Inc.</span><span>Independent redesign concept</span><a href={url('privacy/')}>Privacy & image credits</a><a href="#main">Back to top ↑</a></div>
+  </footer>
+  <script>import '../scripts/main';</script>
+</body>
+</html>

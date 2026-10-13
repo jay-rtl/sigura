@@ -1,0 +1,9 @@
+---
+import Layout from '../layouts/Layout.astro';import Hero from '../components/Hero.astro';import CTA from '../components/CTA.astro';import {url} from '../lib/paths';
+const regions=[['The Peninsula','San Mateo County & surrounding communities',['Atherton','Belmont','Emerald Hills','Hillsborough','Hillsdale (San Mateo)','Menlo Park','Millbrae','San Carlos','San Mateo','West Atherton','Woodside']],['The South Bay','Santa Clara County & nearby communities',['Almaden (San Jose)','Cambrian (San Jose)','Cupertino','Los Altos','Los Gatos','Monte Sereno','Mountain View','Palo Alto','Saratoga','Sunnyvale','West San Jose']]];
+---
+<Layout title="Bay Area service areas" description="Sigura Construction serves Peninsula and South Bay communities including Sunnyvale, Palo Alto, Menlo Park, Los Altos, Saratoga, and Atherton.">
+<Hero eyebrow="Our community / Bay Area, California" title={'Rooted here.\nBuilding here.'} description="From the Peninsula to the South Bay, our work is part of the communities we call home."/>
+<section class="section regions">{regions.map(([name,caption,cities],i)=><article><span class="detail-number">0{i+1}</span><h2>{name}</h2><p>{caption}</p><ul>{Array.isArray(cities)&&cities.map(city=><li>{city}</li>)}</ul></article>)}</section>
+<section class="section area-cta"><p class="eyebrow">Based in Sunnyvale</p><h2>Close to home.<br/><em>Ready to listen.</em></h2><p>Don’t see your community? Share your project address and ask about availability. Service coverage and suitability are confirmed directly with the team.</p><a class="button dark" href={url('contact/')}>Tell us where you’re building <span>↗</span></a></section><CTA/>
+</Layout>

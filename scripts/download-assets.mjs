@@ -1,0 +1,6 @@
+﻿import {mkdir,writeFile} from 'node:fs/promises';
+await mkdir('research/originals',{recursive:true});
+const files={hero:'2025/10/IMG_0658-copy.jpg',exterior:'2025/10/home-design-3-5.jpg',menlo:'2026/03/roomshot-00049.jpg',stairs:'2026/03/roomshot-00046.jpg',bath:'2026/03/Hero.jpg',sunnyvale:'2026/01/09.06.2024_12.45.45-copy-jpg.jpg',morgan:'2026/01/roomshot-00001.jpg',morganKitchen:'2026/01/roomshot-00002.jpg',addition:'2025/10/home-design-2-1.jpg',pool:'2025/10/MG_5062.jpg',pool2:'2025/10/MG_5145.jpg',outdoor:'2025/10/HDR2.jpg',commercial:'2026/09/CeasarStone_02.jpg',commercial2:'2026/09/CeasarStone_10.jpg',before:'2026/06/before-morgan-hill-living-room-remodel.jpg',after:'2026/06/after-morgan-hill-living-room-remodel.jpg',beforeKitchen:'2026/06/kitchen-before.jpg',afterKitchen:'2026/06/kitchen-after.jpg',ilan:'2025/10/1517616420078.jpeg'};
+const manifest=[];
+await Promise.all(Object.entries(files).map(async([name,path])=>{const url='https://siguraconstruction.com/wp-content/uploads/'+path;try{const r=await fetch(url);if(!r.ok)throw Error(r.status);const data=Buffer.from(await r.arrayBuffer());await writeFile('research/originals/'+name+'.jpg',data);manifest.push({name,source:url,bytes:data.length});console.log(name,data.length);}catch(e){console.log('FAILED',name,String(e))}}));
+await writeFile('research/assets.json',JSON.stringify(manifest,null,2));

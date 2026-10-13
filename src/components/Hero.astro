@@ -1,0 +1,9 @@
+---
+import Photo from './Photo.astro';
+interface Props {eyebrow:string;title:string;description?:string;image?:string;concept?:boolean;}
+const {eyebrow,title,description,image,concept=false}=Astro.props;
+---
+<section class:list={['page-hero',{ 'with-photo':!!image}]}>
+  <div class="page-hero-copy"><p class="eyebrow">{eyebrow}</p><h1 data-title>{title.split('\n').map((t,i)=><span class="title-line">{i===title.split('\n').length-1&&title.includes('\n')?<em>{t}</em>:t}</span>)}</h1>{description&&<p class="hero-description">{description}</p>}</div>
+  {image && <div class="page-hero-image"><Photo name={image} alt={concept?'Architectural inspiration; not a Sigura project':`${eyebrow} — Sigura Construction portfolio photography`} eager/>{concept&&<span class="photo-credit">Architectural inspiration · concept photography</span>}</div>}
+</section>

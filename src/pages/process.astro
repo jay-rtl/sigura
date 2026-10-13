@@ -1,0 +1,8 @@
+---
+import Layout from '../layouts/Layout.astro';import Hero from '../components/Hero.astro';import CTA from '../components/CTA.astro';import {steps} from '../data/content';import {url} from '../lib/paths';
+---
+<Layout title="The project journey" description="A five-part guide to discussing your construction project, from discovery and design through planning, construction, and completion.">
+<Hero eyebrow="Our approach / The project journey" title={'A clear direction.\nEvery step of the way.'} description="Good decisions build on one another. This five-part guide gives you a framework for the conversations ahead; your actual scope and sequence are agreed with the team."/>
+<section class="section process-timeline">{steps.map(([name,headline,description],i)=><article id={`step-${i+1}`}><div class="timeline-number">0{i+1}</div><div><p class="eyebrow">{name}</p><h2>{headline}</h2><p>{description}</p><p class="process-question"><span>A useful question</span>{['What do I want the project to change about everyday life?','Which ideas matter most to the way I want to live?','What decisions do we need before work can begin?','How will updates and changes be communicated?','What information will help me care for the finished space?'][i]}</p></div></article>)}</section>
+<section class="section planning-note"><p class="eyebrow">Your first conversation</p><h2>You don’t need<br/><em>all the answers.</em></h2><p>Your project location, a few photographs, and an honest sense of your priorities are enough to begin a useful discussion.</p><a class="text-link" href={url('blog/a-better-remodeling-brief/')}>Prepare your project brief <span>↗</span></a></section><CTA/>
+</Layout>

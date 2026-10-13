@@ -1,0 +1,2 @@
+﻿import {readFile} from 'node:fs/promises';
+for(const name of ['home','portfolio','before']){const s=await readFile('research/'+name+'.html','utf8');const urls=[...new Set([...s.matchAll(/https:\/\/siguraconstruction\.com\/wp-content\/uploads\/[^\s"'<>),]+/g)].map(m=>m[0]))].filter(s=>!/-\d+x\d+\./.test(s));console.log(name,urls.filter(s=>/\.(jpg|png|webp|jpeg)$/.test(s)).map(s=>s.split('/').slice(-3).join('/')).join('\n'));}

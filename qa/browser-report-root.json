@@ -1,0 +1,25 @@
+{
+  "routes": 31,
+  "widths": [
+    320,
+    375,
+    430,
+    768,
+    1024,
+    1440
+  ],
+  "layoutChecks": 186,
+  "interactions": [
+    "Mobile menu, Escape, local navigation",
+    "Project category filters",
+    "Astro transitions and browser Back/Forward",
+    "Keyboard before/after comparison",
+    "Required field validation and truthful email-draft state",
+    "Reduced motion and interactive lightweight model fallback",
+    "GSAP intro completion, Three.js canvas and model controls",
+    "3D lifecycle reinitialization across navigation"
+  ],
+  "errors": [],
+  "warnings": [],
+  "status": "PASS"
+}

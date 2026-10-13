@@ -1,0 +1,12 @@
+import {readdir,readFile,stat} from 'node:fs/promises';
+import {join} from 'node:path';
+const root='dist';const base=(process.env.BASE_PATH||'/').replace(/\/$/,'');
+async function walk(dir){const files=[];for(const item of await readdir(dir,{withFileTypes:true})){const path=join(dir,item.name);if(item.isDirectory())files.push(...await walk(path));else files.push(path)}return files;}
+const htmls=(await walk(root)).filter(p=>p.endsWith('.html'));const failures=[];let links=0,images=0;const titles=new Set();
+for(const path of htmls){const html=await readFile(path,'utf8');const title=html.match(/<title>(.*?)<\/title>/)?.[1];if(!title||titles.has(title))failures.push(`${path}: missing/duplicate title`);titles.add(title);if(!/<h1[\s>]/.test(html))failures.push(`${path}: no h1`);if(!/name="description"/.test(html))failures.push(`${path}: no meta description`);
+for(const m of html.matchAll(/(?:href|src)="([^"]+)"/g)){const value=m[1];if(/^(https?:|mailto:|tel:|data:|#)/.test(value)){if(/^https?:\/\/(?:www\.)?sigura(?:construction\.com|propainting\.com)/.test(value))failures.push(`${path}: original website navigation ${value}`);continue;}if(!value.startsWith('/'))continue;links++;if(base&&!value.startsWith(base+'/'))failures.push(`${path}: missing base ${value}`);const local=decodeURIComponent(value.split('#')[0].split('?')[0].slice(base.length));let target=join(root,local);if(value.split('#')[0].endsWith('/'))target=join(target,'index.html');try{await stat(target)}catch{failures.push(`${path}: missing ${value}`);}}
+for(const m of html.matchAll(/<img\b([^>]+)>/g)){images++;if(!/\balt="[^"]+"/.test(m[1]))failures.push(`${path}: missing image alt`);}
+}
+const expected=['','about','services','services/custom-homes','services/home-remodeling','services/adus','services/home-additions','services/outdoor-living','services/pools-spas','services/restoration','services/insurance-negotiation','services/3d-design','services/commercial','projects','before-after','process','reviews','awards','service-areas','blog','contact','privacy'];
+for(const route of expected){try{await stat(join(root,route,'index.html'))}catch{failures.push(`Missing required route /${route}/`)}}
+if(failures.length){console.error(failures.join('\n'));process.exit(1)}console.log(`PASS: ${htmls.length} pages, ${links} local references, ${images} images, unique titles, required routes, and base path '${base||'/'}'.`);

@@ -1,0 +1,8 @@
+---
+import Layout from '../layouts/Layout.astro';import Hero from '../components/Hero.astro';import Comparison from '../components/Comparison.astro';import CTA from '../components/CTA.astro';import {url} from '../lib/paths';
+---
+<Layout title="Before & after" description="Compare actual matched before-and-after photographs from Sigura Construction’s Morgan Hill and Menlo Park remodeling projects.">
+<Hero eyebrow="Before & after / The transformation collection" title={'A new perspective.\nA different feeling.'} description="Two moments in the same space. Drag the divider, or use the arrow keys, to explore real remodeling transformations."/>
+<section class="section comparison-section"><div class="section-heading"><div><p class="eyebrow">01 / Morgan Hill</p><h2>Room for a new chapter.</h2></div><p>A living space, reconsidered.<br/>Published as a whole-home remodel.</p></div><Comparison/><a class="text-link" href={url('projects/ralph-lee/')}>Explore the Morgan Hill project <span>↗</span></a></section>
+<section class="section comparison-section"><div class="section-heading"><div><p class="eyebrow">02 / Menlo Park</p><h2>The heart of the home.</h2></div><p>A kitchen transformation.<br/>Matched photographs from the company’s before-and-after collection.</p></div><Comparison kitchen/><a class="text-link" href={url('services/home-remodeling/')}>Explore home remodeling <span>↗</span></a></section><CTA/>
+</Layout>

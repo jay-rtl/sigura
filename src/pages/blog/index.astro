@@ -1,0 +1,7 @@
+---
+import Layout from '../../layouts/Layout.astro';import Hero from '../../components/Hero.astro';import Photo from '../../components/Photo.astro';import CTA from '../../components/CTA.astro';import {articles} from '../../data/content';import {url} from '../../lib/paths';
+---
+<Layout title="The journal" description="Original planning and design notes for your next home project: preparing a remodeling brief, thinking about kitchens, and creating outdoor rooms.">
+<Hero eyebrow="The journal / Notes on considered living" title={'Ideas worth\nbuilding on.'} description="A little inspiration. A useful starting point. Original design and planning notes for this independent concept."/>
+<section class="section journal-grid">{articles.map(a=><article><a href={url(`blog/${a.slug}/`)}><Photo name={a.image} alt={`${a.category} — architectural detail from Sigura’s portfolio`}/><p class="eyebrow">{a.category} / 3 min read</p><h2>{a.title}</h2><p>{a.summary}</p><span class="text-link">Read the story <span>↗</span></span></a></article>)}</section><CTA/>
+</Layout>

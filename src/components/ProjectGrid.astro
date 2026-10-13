@@ -1,0 +1,11 @@
+---
+import {projects} from '../data/content';
+import {url} from '../lib/paths';
+import Photo from './Photo.astro';
+interface Props {limit?:number;filter?:boolean;exclude?:string;}
+const {limit=projects.length,filter=false,exclude}=Astro.props;
+const selection=projects.filter(p=>p.slug!==exclude).slice(0,limit);
+---
+{filter && <div class="filters" role="group" aria-label="Filter projects">{['All projects','Remodeling','Additions','Outdoor living','Commercial'].map((c,i)=><button data-filter={i===0?'all':c} aria-pressed={i===0}>{c}<span>{i===0?projects.length:projects.filter(p=>p.category===c).length}</span></button>)}</div>}
+<div class="project-grid">{selection.map((p,i)=><article class="project-card" data-category={p.category}><a href={url(`projects/${p.slug}/`)}><div class="project-image" data-reveal="mask"><Photo name={p.image} alt={`${p.name}: ${p.description}`}/><span class="round-arrow">↗</span><span class="project-number">0{i+1}</span></div><div class="project-meta"><h3>{p.name}</h3><span>{p.location} <span class="sep">/</span> {p.category}</span></div></a></article>)}</div>
+{filter && <p class="filter-status sr-only" role="status" aria-live="polite">Showing all {projects.length} projects.</p>}

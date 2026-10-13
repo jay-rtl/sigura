@@ -1,0 +1,10 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Hero from '../../components/Hero.astro';
+import ProjectGrid from '../../components/ProjectGrid.astro';
+import CTA from '../../components/CTA.astro';
+---
+<Layout title="Selected projects" description="Explore documented Sigura Construction home remodels, additions, outdoor living spaces, and commercial projects across the Bay Area.">
+<Hero eyebrow="Selected work / The project collection" title={'Individual visions.\nBeautifully realized.'} description="Homes for gathering. Spaces for growing. Places made to be lived in. Explore a selection from Sigura’s published portfolio."/>
+<section class="section projects-library"><ProjectGrid filter/><p class="source-note">Project names, locations, and photographs are drawn from Sigura Construction’s published portfolio. No budgets, dimensions, or client outcomes are inferred.</p></section><CTA/>
+</Layout>

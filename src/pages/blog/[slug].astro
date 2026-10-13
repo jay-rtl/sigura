@@ -1,0 +1,6 @@
+---
+import Layout from '../../layouts/Layout.astro';import Hero from '../../components/Hero.astro';import CTA from '../../components/CTA.astro';import {articles} from '../../data/content';import {url} from '../../lib/paths';
+export function getStaticPaths(){return articles.map(a=>({params:{slug:a.slug},props:{article:a}}));}
+const {article:a}=Astro.props;
+---
+<Layout title={a.title} description={a.summary} hero={a.image}><Hero eyebrow={`The journal / ${a.category}`} title={a.title} image={a.image}/><article class="section article-body"><p class="article-intro">{a.summary}</p><p class="source-note">Original editorial for this independent redesign · October 2026</p>{a.sections.map(([heading,body])=><section><h2>{heading}</h2><p>{body}</p></section>)}<p>Every property and project is different. Use these notes to prepare questions for your project team rather than as a specification for construction.</p><a class="text-link" href={url('blog/')}>← Return to the journal</a></article><CTA/></Layout>

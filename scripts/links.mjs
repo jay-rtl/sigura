@@ -1,0 +1,1 @@
+﻿import {readFile} from 'node:fs/promises';const s=await readFile('research/home.html','utf8');console.log([...new Set([...s.matchAll(/href="(https?:[^\"]*(?:bbb.org|diamondcertified.org|houzz.com|cslb.ca.gov)[^\"]*)"/g)].map(m=>m[1]))].join('\n'));

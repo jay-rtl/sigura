@@ -1,0 +1,12 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Hero from '../../components/Hero.astro';
+import CTA from '../../components/CTA.astro';
+import Photo from '../../components/Photo.astro';
+import {services} from '../../data/content';
+import {url} from '../../lib/paths';
+---
+<Layout title="Our expertise" description="Explore custom homes, kitchen and bathroom remodeling, ADUs, additions, pools, outdoor living, restoration, and commercial construction.">
+<Hero eyebrow="Our expertise / Design & build" title={'Considered design.\nAt every scale.'} description="A new beginning or a thoughtful transformation. Find the right starting point for your project."/>
+<section class="service-directory section">{services.map((s,i)=><a class="service-panel" href={url(`services/${s.slug}/`)}><Photo name={s.image} alt={s.concept?'Concept architectural photograph':`${s.name} — Sigura portfolio photograph`}/><div><span class="eyebrow">{String(i+1).padStart(2,'0')} / {s.concept?'ARCHITECTURAL INSPIRATION':'SIGURA CONSTRUCTION'}</span><h2>{s.name}</h2><p>{s.short}</p></div><span class="round-arrow">↗</span></a>)}</section><CTA/>
+</Layout>

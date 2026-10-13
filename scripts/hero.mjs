@@ -1,0 +1,1 @@
+﻿const r=await fetch('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2400&q=88'); if(!r.ok)throw Error(r.status); await (await import('node:fs/promises')).writeFile('research/originals/architecture.jpg',Buffer.from(await r.arrayBuffer()));
