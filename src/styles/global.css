@@ -13,3 +13,8 @@ footer{background:var(--ink);color:var(--paper);padding:65px var(--gutter) 25px}
 @media(max-width:350px){:root{--gutter:18px}.home-hero h1{font-size:40px}.hero-actions{gap:8px}.hero-actions .button{padding:13px;gap:20px;font-size:9px}.hero-actions .text-link{font-size:9px}.home-hero .eyebrow{font-size:6px}.home-hero{min-height:670px}.project-image,.project-card:nth-child(even) .project-image{height:350px}.form-grid{grid-template-columns:1fr}.form-grid .field{grid-column:1}.footer-wordmark{font-size:64px}.model-wrap{min-height:310px}.model-top{font-size:5px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}.intro{display:none!important}}
 @keyframes page-in{from{opacity:.6;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}::view-transition-old(root){animation:120ms ease both fade-out}::view-transition-new(root){animation:350ms ease both page-in}@keyframes fade-out{to{opacity:0}}
+/* Keep navigation available across long pages and the immersive home hero. */
+.site-header{position:sticky;top:0;transition:background-color .2s,color .2s,border-color .2s}
+.home .site-header{position:fixed}
+.home .site-header.is-scrolled{background:var(--paper);color:var(--ink);border-color:var(--line)}
+.home.menu-open .site-header{background:var(--ink);color:var(--paper);border-color:#ffffff20}

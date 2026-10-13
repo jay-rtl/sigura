@@ -11,6 +11,10 @@ function init() {
   const {signal}=controller;
   const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const listen=(el:EventTarget,type:string,handler:EventListener)=>el.addEventListener(type,handler,{signal});
+  const header=document.querySelector<HTMLElement>('.site-header');
+  const updateHeader=()=>header?.classList.toggle('is-scrolled',window.scrollY>24);
+  window.addEventListener('scroll',updateHeader,{passive:true,signal});
+  updateHeader();
   const menu=document.querySelector<HTMLElement>('#mobile-menu');
   const toggle=document.querySelector<HTMLButtonElement>('.menu-toggle');
   const setMenu=(open:boolean)=>{
